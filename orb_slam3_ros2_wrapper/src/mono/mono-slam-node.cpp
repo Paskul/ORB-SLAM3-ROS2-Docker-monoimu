@@ -58,9 +58,8 @@ namespace ORB_SLAM3_Wrapper
         this->declare_parameter("landmark_publish_frequency", rclcpp::ParameterValue(1000));
         this->get_parameter("landmark_publish_frequency", landmark_publish_frequency_);
         
-	mapPointsCallbackGroup_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+	    mapPointsCallbackGroup_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
         mapPointsTimer_ = this->create_wall_timer(std::chrono::milliseconds(landmark_publish_frequency_), std::bind(&MonoSlamNode::publishMapPointCloud, this));
-
 
         interface_ = std::make_shared<ORB_SLAM3_Wrapper::ORBSLAM3Interface>(strVocFile, strSettingsFile,
                                                                             sensor, bUseViewer, rosViz_, robot_x_,

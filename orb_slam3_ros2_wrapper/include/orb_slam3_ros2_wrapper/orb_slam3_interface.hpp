@@ -84,6 +84,8 @@ namespace ORB_SLAM3_Wrapper
 
         bool trackRGBD(const sensor_msgs::msg::Image::SharedPtr msgRGB, const sensor_msgs::msg::Image::SharedPtr msgD, Sophus::SE3f &Tcw);
         
+        bool trackMONOi(const sensor_msgs::msg::Image::SharedPtr msgRGB, Sophus::SE3f &Tcw);
+
         bool trackMONO(const sensor_msgs::msg::Image::SharedPtr msgRGB, Sophus::SE3f &Tcw);
 
     private:

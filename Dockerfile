@@ -57,6 +57,10 @@ RUN apt-get install ros-humble-nav2-common x11-apps nano -y
 COPY ORB_SLAM3 /home/orb/ORB_SLAM3
 RUN . /opt/ros/humble/setup.sh && cd /home/orb/ORB_SLAM3 && mkdir build && ./build.sh
 
+#pascal add
+COPY orb_slam3_ros2_wrapper /root/colcon_ws/src/orb_slam3_ros2_wrapper
+COPY slam_msgs /root/colcon_ws/src/slam_msgs
+
 RUN sudo apt-get install -y ros-humble-rmw-cyclonedds-cpp
 
 RUN cd /root/colcon_ws/

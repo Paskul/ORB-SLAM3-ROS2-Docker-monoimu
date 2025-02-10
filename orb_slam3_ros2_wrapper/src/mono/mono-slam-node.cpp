@@ -15,11 +15,11 @@ namespace ORB_SLAM3_Wrapper
         : Node("ORB_SLAM3_MONO_ROS2")
     {
         // ROS Subscribers
-        rgbSub_ = this->create_subscription<sensor_msgs::msg::Image>("camera/image_raw",10,std::bind(&MonoSlamNode::MONOCallback,
+        rgbSub_ = this->create_subscription<sensor_msgs::msg::Image>("robot_0/rgb_camera",10,std::bind(&MonoSlamNode::MONOCallback,
         									    	    this,std::placeholders::_1));
 
-        imuSub_ = this->create_subscription<sensor_msgs::msg::Imu>("imu", 1000, std::bind(&MonoSlamNode::ImuCallback, this, std::placeholders::_1));
-        odomSub_ = this->create_subscription<nav_msgs::msg::Odometry>("odom", 1000, std::bind(&MonoSlamNode::OdomCallback, this, std::placeholders::_1));
+        imuSub_ = this->create_subscription<sensor_msgs::msg::Imu>("robot_0/imu", 1000, std::bind(&MonoSlamNode::ImuCallback, this, std::placeholders::_1));
+        odomSub_ = this->create_subscription<nav_msgs::msg::Odometry>("robot_0/odom", 1000, std::bind(&MonoSlamNode::OdomCallback, this, std::placeholders::_1));
         // ROS Publishers 
         mapPointsPub_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("mono_map_points", 10);
         // TF
@@ -99,7 +99,7 @@ namespace ORB_SLAM3_Wrapper
     void MonoSlamNode::MONOCallback(const sensor_msgs::msg::Image::SharedPtr msgRGB)
     {
         Sophus::SE3f Tcw;
-        if (interface_->trackMONO(msgRGB, Tcw))
+        if (interface_->trackMONOi(msgRGB, Tcw))
         {
             isTracked_ = true;
             if(no_odometry_mode_) interface_->getDirectMapToRobotTF(msgRGB->header, tfMapOdom_);

@@ -730,3 +730,266 @@ ls
 cd ~
 ls
 exit
+ls
+cd colcon_ws/
+ls
+cd install/
+ls
+cd ..
+ls
+cd colcon_ws/
+ls
+cd build/
+ls
+cd ..
+cd install/
+ls
+cd ..
+ls
+cd src/
+ls
+cd orb_slam3_ros2_wrapper/
+ls
+cd launch/
+ls
+cd ..
+ls
+export ROS_LOCALHOST_ONLY=1
+ros2 launch orb_slam3_ros2_wrapper unirobot_mono.launch.py
+ros2 topic list
+ros2 topic info /robot_0/rgb_camera
+ros2 topic hz /robot_0/rgb_camera
+/robot_0/imu
+ros2 topic hz /robot_0/imu
+ros2 launch orb_slam3_ros2_wrapper unirobot_mono.launch.py
+ros2 topic hz /robot_0/imu
+ros2 topic hz /robot_0/rgb_camera
+ls
+cd coc
+cd colcon_ws/
+ls
+cd src
+ls
+cd orb_slam3_ros2_wrapper/
+ls
+cd src/
+code orb_slam3_interface.cpp 
+sudo code orb_slam3_interface.cpp 
+exit
+export ROS_LOCALHOST_ONLY=1
+ls
+cd colcon_ws/
+l;s
+ls
+cd src/
+ls
+cd orb_slam3_ros2_wrapper/
+ls
+cd src/
+ls
+vi orb_slam3_interface.cpp 
+ros2 launch orb_slam3_ros2_wrapper unirobot_mono.launch.py
+cd ..
+ls
+cd params/
+ls
+vi scout_v2_mono.yaml 
+ros2 launch orb_slam3_ros2_wrapper unirobot_mono.launch.py
+ros2 topic list
+ros2 topic echo /robot_0/imu
+exit
+ros2 launch orb_slam3_ros2_wrapper unirobot_mono.launch.py
+exit
+export ROS_LOCALHOST_ONLY=1
+ros2 launch orb_slam3_ros2_wrapper unirobot_mono.launch.py
+ls
+cd coc
+cd colcon_ws/
+ls
+cd src/
+ls
+cd orb_slam3_ros2_wrapper/
+ls
+cd src/
+ls
+vi orb_slam3_interface.cpp 
+ls
+cd ..
+ls
+cd ..
+ls
+cd /root/colcon_ws/
+colcon build --symlink-install
+ls
+cd src/
+ls
+cd orb_slam3_ros2_wrapper/
+ls
+cd src/
+ls
+vi orb_slam3_interface.cpp 
+cd ~
+ls
+colcon build --symlink-install
+ls
+rm build/
+cd colcon_ws/
+ls
+cd ..
+ls
+cd build/
+ls
+cd ..
+ls
+rm build/
+rm build
+rm -r build/
+ls
+rm -r install/
+rm -r log/
+ls
+cd colcon_ws/l
+cd colcon_ws/
+cd ..
+cd /root/colcon_ws/
+colcon build --symlink-install
+source install/setup.bash
+ros2 launch orb_slam3_ros2_wrapper unirobot.launch.py
+ls
+export ROS_LOCALHOST_ONLY=1
+ros2 launch orb_slam3_ros2_wrapper unirobot_mono.launch.py
+ls
+cd src/
+ls
+cd orb_slam3_ros2_wrapper/
+ls
+cd src/
+vi orb_slam3_interface.cpp 
+cd ..
+cd cocl
+cd colcon_ws/
+ls
+ros2 launch orb_slam3_ros2_wrapper unirobot_mono.launch.py
+colcon build --symlink-install
+source install/setup.bash
+ros2 launch orb_slam3_ros2_wrapper unirobot_mono.launch.py
+ls
+cd srt
+cd src/
+ls
+cd orb_slam3_ros2_wrapper/
+ls
+cd src/
+ls
+vi orb_slam3_interface.cpp 
+cd ..
+ls
+cd params/
+ls
+vi scout_v2_mono.yaml 
+ls
+cd ..
+ls
+colcon build --symlink-install
+source install/setup.bash
+ros2 launch orb_slam3_ros2_wrapper unirobot_mono.launch.py
+exot
+exit
+export ROS_LOCALHOST_ONLY=1
+ros2 launch orb_slam3_ros2_wrapper unirobot_mono.launch.py
+ls
+cd colc
+ls
+cd colcon_ws/
+ls
+cd src/
+ls
+cd orb_slam3_ros2_wrapper/
+ls
+cd src/
+ls
+cd mono/
+ls
+cd ..
+ls
+cd include/
+ls
+cd orb_slam3_ros2_wrapper/
+ls
+vi orb_slam3_interface.hpp 
+cd ..
+ls
+cd src/
+ls
+vi orb_slam3_interface.cpp 
+cd ..
+ls
+c src/
+cd src/
+ls
+cd ..
+ls
+colcon build --symlink-install
+ls
+cd src/
+ls
+cd orb_slam3_ros2_wrapper/
+ls
+cd src/
+ls
+vi orb_slam3_interface.cpp 
+cd ..
+ls
+cd ..
+ls
+colcon build --symlink-install
+ls
+cd src/
+ls
+cd orb_slam3_ros2_wrapper/
+ls
+cd src/
+ls
+vi orb_slam3_interface.cpp 
+cd ..
+ls
+colcon build --symlink-install
+source install/setup.bash
+ros2 launch orb_slam3_ros2_wrapper unirobot_mono.launch.py
+ls
+cd src/
+ls
+cd orb_slam3_ros2_wrapper/
+ls
+cd src/
+ls
+vi orb_slam3_interface.cpp 
+cd ..
+ls
+colcon build --symlink-install
+ls
+cd src/
+ls
+cd orb_slam3_ros2_wrapper/
+ls
+cd src/
+ls
+vi orb_slam3_interface.cpp 
+cd ..
+ls
+colcon build --symlink-install
+source install/setup.bash
+ros2 launch orb_slam3_ros2_wrapper unirobot_mono.launch.py
+ls
+cd src/
+ls
+cd orb_slam3_ros2_wrapper/
+ls
+cd src/
+ls
+vi orb_slam3_interface.cpp 
+cat orb_slam3_interface.cpp | xclip -selection clipboard
+vi orb_slam3_interface.cpp 
+ls
+cd ..
+exit

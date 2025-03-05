@@ -442,23 +442,65 @@ namespace ORB_SLAM3_Wrapper
         }
 
         vector<ORB_SLAM3::IMU::Point> vImuMeas;
-        bufMutex_.lock();
-        if (!imuBuf_.empty())
-        {
-            // Load imu measurements from buffer
-            vImuMeas.clear();
-            while (!imuBuf_.empty() && typeConversions_->stampToSec(imuBuf_.front()->header.stamp) <= typeConversions_->stampToSec(msgRGB->header.stamp))
-            {
-                double t = typeConversions_->stampToSec(imuBuf_.front()->header.stamp);
-                cv::Point3f acc(imuBuf_.front()->linear_acceleration.x, imuBuf_.front()->linear_acceleration.y, imuBuf_.front()->linear_acceleration.z);
-                cv::Point3f gyr(imuBuf_.front()->angular_velocity.x, imuBuf_.front()->angular_velocity.y, imuBuf_.front()->angular_velocity.z);
-                vImuMeas.push_back(ORB_SLAM3::IMU::Point(acc, gyr, t));
-                imuBuf_.pop();
-            }
-        }
-        bufMutex_.unlock();
-        if (imuBuf_.size() > 0)
-        {
+        //double tolerance = 0.02;
+	double tolerance = 0.03;
+	double imgTime = typeConversions_->stampToSec(msgRGB->header.stamp);
+
+	// pascal comment out
+	//bufMutex_.lock();
+
+	// pascal debug
+	std::cout << "[PASCAL DEBUG] Image timestamp: " << typeConversions_->stampToSec(msgRGB->header.stamp) << std::endl;
+       
+	{
+
+		std::lock_guard<std::mutex> lock(bufMutex_);
+    
+		// If we have a last IMU measurement from a previous callback, add it first.
+        	if (lastIMU_) {
+            		double t_last = typeConversions_->stampToSec(lastIMU_->header.stamp);
+            		cv::Point3f acc_last(lastIMU_->linear_acceleration.x, lastIMU_->linear_acceleration.y, lastIMU_->linear_acceleration.z);
+            		cv::Point3f gyr_last(lastIMU_->angular_velocity.x, lastIMU_->angular_velocity.y, lastIMU_->angular_velocity.z);
+            		vImuMeas.push_back(ORB_SLAM3::IMU::Point(acc_last, gyr_last, t_last));
+        	}
+    
+        	// Accumulate new IMU measurements whose timestamp is within (imgTime + tolerance)
+        	while (!imuBuf_.empty() && typeConversions_->stampToSec(imuBuf_.front()->header.stamp) <= imgTime + tolerance)
+        	{
+            		auto imuMsg = imuBuf_.front();
+            		double t = typeConversions_->stampToSec(imuMsg->header.stamp);
+            		cv::Point3f acc(imuMsg->linear_acceleration.x, imuMsg->linear_acceleration.y, imuMsg->linear_acceleration.z);
+            		cv::Point3f gyr(imuMsg->angular_velocity.x, imuMsg->angular_velocity.y, imuMsg->angular_velocity.z);
+            		vImuMeas.push_back(ORB_SLAM3::IMU::Point(acc, gyr, t));
+            		lastIMU_ = imuMsg; // update persistent last measurement
+            		imuBuf_.pop();
+        	}
+    	}
+
+
+
+	//pascal comment
+	//bufMutex_.unlock();
+	
+        // pascal change
+        //if (imuBuf_.size() > 0)
+	if (vImuMeas.size() < 2)
+	{
+      	    std::cout << "[PASCAL DEBUG] Not enough IMU measurements:" << vImuMeas.size() << std::endl;
+	    return false;
+
+	}
+
+	double dt = vImuMeas.back().t - vImuMeas.front().t;
+	double min_dt = 0.01; // for example, require at least 10ms between the first and last measurement
+	if(dt < min_dt) {
+    	    std::cout << "[PASCAL DEBUG] Time span too short (" << dt << "s), skipping frame." << std::endl;
+	    return false;
+	}
+
+	// commenting out because of above check
+        //if (!vImuMeas.empty())
+        //{
             // track the frame.
             // old
             // Tcw = mSLAM_->TrackRGBD(cvRGB->image, cvD->image, typeConversions_->stampToSec(msgRGB->header.stamp), vImuMeas);
@@ -494,7 +536,7 @@ namespace ORB_SLAM3_Wrapper
                 }
                 return false;
             }
-        }
+
         return false;
     }
 

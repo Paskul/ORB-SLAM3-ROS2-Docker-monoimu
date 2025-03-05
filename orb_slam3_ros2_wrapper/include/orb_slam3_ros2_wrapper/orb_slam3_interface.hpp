@@ -99,6 +99,8 @@ namespace ORB_SLAM3_Wrapper
         bool rosViz_;
 
         queue<sensor_msgs::msg::Imu::SharedPtr> imuBuf_;
+	sensor_msgs::msg::Imu::SharedPtr lastIMU_;
+
         std::mutex bufMutex_;
         std::mutex mapDataMutex_;
         std::mutex currentMapPointsMutex_;
